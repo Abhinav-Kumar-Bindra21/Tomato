@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route path="/order" element={<PlaceOrder />} />
         </Routes>
       </div>
+
+      <Footer />
     </>
   );
 }
