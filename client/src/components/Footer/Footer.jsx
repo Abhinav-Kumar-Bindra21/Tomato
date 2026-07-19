@@ -9,8 +9,9 @@ const Footer = () => {
         <div className="footer-content-left">
           <img src={assets.logo} alt="" />
           <p>
-            Serving delicious meals with fresh ingredients and warm hospitality since day one. Thank you for dining with
-            us!
+            Every dish we prepare is crafted with fresh ingredients, rich flavors, and genuine care. Whether you're
+            dining with family, friends, or enjoying a meal on your own, Tomato is dedicated to delivering quality,
+            taste, and unforgettable moments. Your satisfaction is always our highest priority.
           </p>
           <div className="footer-social-icons">
             <img src={assets.facebook_icon} alt="" />
