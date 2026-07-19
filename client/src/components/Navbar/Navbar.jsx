@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/frontend_assets/assets";
+import { Link } from "react-router";
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("Menu");
   return (
     <div className="navbar">
       <img src={assets.logo} alt="logo" className="logo" />
       <ul className="navbar-menu">
-        <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>
+        <Link to="/" onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>
           Home
-        </li>
-        <li onClick={() => setMenu("Menu")} className={menu === "Menu" ? "active" : ""}>
+        </Link>
+        <a href="#explore-menu" onClick={() => setMenu("Menu")} className={menu === "Menu" ? "active" : ""}>
           Menu
-        </li>
-        <li onClick={() => setMenu("Mobile-App")} className={menu === "Mobile-App" ? "active" : ""}>
+        </a>
+        <a href="#app-download" onClick={() => setMenu("Mobile-App")} className={menu === "Mobile-App" ? "active" : ""}>
           Mobile-App
-        </li>
-        <li onClick={() => setMenu("Contact")} className={menu === "Contact" ? "active" : ""}>
+        </a>
+        <a href="#footer" onClick={() => setMenu("Contact")} className={menu === "Contact" ? "active" : ""}>
           Contact Us
-        </li>
+        </a>
       </ul>
 
       <div className="navbar-right">
@@ -29,7 +30,7 @@ const Navbar = () => {
           <div className="dot"></div>
         </div>
 
-        <button>Sign in</button>
+        <button onClick={() => setShowLogin(true)}>Sign in</button>
       </div>
     </div>
   );
