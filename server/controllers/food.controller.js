@@ -23,3 +23,34 @@ export const addFood = async (req, res) => {
     res.status(400).json({ success: "false", message: "Failed to add food item" });
   }
 };
+
+export const listFood = async (req, res) => {
+  try {
+    const foods = await FoodModel.find({});
+
+    if (!foods) {
+      res.status(400).json({ success: "false", message: "No item is present" });
+    }
+    res.status(200).json({ success: true, data: foods });
+  } catch (error) {
+    res.status(400).json({ success: "false", message: "Failed to fetch foods" });
+  }
+};
+
+export const removeFood = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const food = await FoodModel.findById(id);
+
+    if (!food) {
+      res.status(400).json({ success: "false", message: "Food is not found" });
+    }
+    fs.unlink(`uploads/${food.image}`, () => {});
+
+    await FoodModel.findByIdAndDelete(id);
+    res.status(200).json({ success: true, message: "Food removed" });
+  } catch (error) {
+    res.status(400).json({ success: "false", message: "Failed to remove food" });
+  }
+};
