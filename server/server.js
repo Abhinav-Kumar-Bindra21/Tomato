@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import connectDB from "./config/db.js";
 import foodRouter from "./routes/food.route.js";
+import userRouter from "./routes/user.routes.js";
 
 // app config
 const app = express();
@@ -19,6 +20,7 @@ connectDB();
 // api endpoints
 app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
+app.use("/api/user", userRouter);
 
 app.listen(PORT, () => {
   console.log("Server started !!!");
