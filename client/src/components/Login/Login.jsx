@@ -24,7 +24,7 @@ const Login = ({ setShowLogin }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     let newUrl = url;
-    if (currState === "login") {
+    if (currState === "Login") {
       newUrl += "/api/user/login";
     } else {
       newUrl += "/api/user/register";
