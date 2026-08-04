@@ -12,7 +12,7 @@ export const placeOrder = async (req, res) => {
     const newOrder = new Order({
       userId: req.user,
       items: req.body.items,
-      amount: req.body.ammount,
+      amount: req.body.amount,
       address: req.body.address,
     });
 
@@ -20,25 +20,29 @@ export const placeOrder = async (req, res) => {
 
     await Order.findByIdAndUpdate(req.user, { cartData: {} });
 
+    // console.log(req.body);
+    // console.log(req.body.items);
+    console.log(Array.isArray(req.body.items));
+
     const lineItems = req.body.items.map((item) => ({
-      priceData: {
+      price_data: {
         currency: "inr",
-        productData: {
+        product_data: {
           name: item.name,
         },
-        unitAmount: item.price * 100 * 95,
+        unit_amount: item.price * 100 * 95,
       },
       quantity: item.quantity,
     }));
 
     lineItems.push({
-      priceData: {
+      price_data: {
         currency: "inr",
-        productData: {
+        product_data: {
           name: "Delivery Charges",
         },
 
-        unitAmount: 2 * 100 * 95,
+        unit_amount: 2 * 100 * 95,
       },
 
       quantity: 1,
@@ -53,6 +57,10 @@ export const placeOrder = async (req, res) => {
 
     res.status(200).json({ success: true, sessionUrl: session.url });
   } catch (error) {
-    res.status(400).json({ success: false, message: "Error in payment " });
+    console.error(error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
