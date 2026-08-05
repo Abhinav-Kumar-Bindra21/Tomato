@@ -5,7 +5,7 @@ import { food_list } from "../../assets/frontend_assets/assets";
 import { useNavigate } from "react-router";
 
 const Cart = () => {
-  const { cartItems, foodList, removeFromCart, getCartTotalAmount, url, food_list } = useContext(StoreContext);
+  const { cartItems, foodList, removeFromCart, getCartTotalAmount, url } = useContext(StoreContext);
   const navigate = useNavigate();
   return (
     <div className="cart">
@@ -20,7 +20,7 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item, index) => {
+        {foodList.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
               <div key={index}>
