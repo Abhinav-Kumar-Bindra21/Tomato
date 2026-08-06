@@ -77,7 +77,27 @@ export const verifyOrder = async (req, res) => {
       res.status(400).json({ success: false, message: "Not Paid" });
     }
   } catch (error) {
-    console.error(error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const userOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.user });
+
+    if (!orders) {
+      return res.status(400).json({
+        success: false,
+        message: "User has no order Item",
+      });
+    }
+
+    res.status(200).json({ success: true, data: orders });
+  } catch (error) {
+    console.log(error);
     res.status(400).json({
       success: false,
       message: error.message,
