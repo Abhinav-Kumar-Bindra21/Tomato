@@ -104,3 +104,19 @@ export const userOrders = async (req, res) => {
     });
   }
 };
+
+// Listing orders for admin panel
+
+export const listOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({});
+
+    if (!orders) {
+      return res.status(400).json({ success: false, message: "No orders present" });
+    }
+
+    res.status(200).json({ success: true, data: orders, message: "Orders fetched successfully" });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
