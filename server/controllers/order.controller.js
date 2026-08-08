@@ -69,7 +69,7 @@ export const verifyOrder = async (req, res) => {
   try {
     const { orderId, success } = req.body;
 
-    if (!orderId || success) {
+    if (!orderId || !success) {
       return res.status(400).json({ success: false, message: "Missing orderId and success" });
     }
 

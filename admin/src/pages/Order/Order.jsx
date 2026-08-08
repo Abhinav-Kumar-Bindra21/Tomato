@@ -15,12 +15,25 @@ const Order = ({ url }) => {
 
       if (res.data.success) {
         setOrders(res.data.data);
-        console.log(res.data.data);
       } else {
         toast.error("Error");
       }
     } catch (error) {
       toast.error(error.message);
+    }
+  };
+
+  const statusHandler = async (e, orderId) => {
+    try {
+      const res = await axios.put(url + "/api/order/status", { orderId, status: e.target.value });
+
+      if (res.data.success) {
+        await fetchAllOrders();
+        toast.success("Food Status Updated");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update Status");
     }
   };
 
@@ -61,7 +74,7 @@ const Order = ({ url }) => {
             </div>
             <p>Items : {order.items.length}</p>
             <p>${order.amount}</p>
-            <select>
+            <select onChange={(e) => statusHandler(e, order._id)} value={order.status}>
               <option value="Food Processing">Food Processing</option>
               <option value="Out for delivery ">Out for delivery</option>
               <option value="Delivered">Delivered</option>
