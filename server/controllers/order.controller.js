@@ -69,6 +69,10 @@ export const verifyOrder = async (req, res) => {
   try {
     const { orderId, success } = req.body;
 
+    if (!orderId || success) {
+      return res.status(400).json({ success: false, message: "Missing orderId and success" });
+    }
+
     if (success === "true") {
       await Order.findByIdAndUpdate(orderId, { payment: true });
       res.status(200).json({ success: true, message: "Paid" });
@@ -116,6 +120,28 @@ export const listOrders = async (req, res) => {
     }
 
     res.status(200).json({ success: true, data: orders, message: "Orders fetched successfully" });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// api for updating order status
+
+export const updateStatus = async (req, res) => {
+  try {
+    const { orderId, status } = req.body;
+
+    if (!orderId || !status) {
+      return res.status(400).json({ success: false, message: "OrderId and status is missing" });
+    }
+
+    const isUpdatedStatus = await Order.findByIdAndUpdate(orderId, { status: status });
+
+    if (!isUpdatedStatus) {
+      return res.status(400).json({ success: false, message: "Status Updating is failed" });
+    }
+
+    res.status(200).json({ success: true, message: "Status Updated" });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }
